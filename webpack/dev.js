@@ -12,10 +12,10 @@ module.exports = {
     // 'react-hot-loader/patch',
     path.resolve(__dirname, '../src/index.tsx')
   ],
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js', 'jsx', '.json'],
-        modules: ['src', 'node_modules']
-    },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', 'jsx', '.json'],
+    modules: ['src', 'node_modules']
+  },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, '../build'),
@@ -37,21 +37,24 @@ module.exports = {
           }
         }
       },
-        {
+      {
         // the client needs `css-modules-transform` removed from the babelrc
         // since `ExtractCssChunks` handles css transformation:
         test: /\.tsx?$/,
         exclude: /node_modules/,
-            use: [{
-              loader: 'babel-loader',
-              options: {
-                  babelrc: false,
-                  presets: ['es2017', 'react', 'stage-0'],
-                  plugins: [] // notice 'css-modules-transform' is not here
-              }
-          }, 'awesome-typescript-loader']
-        },
-        {
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              babelrc: false,
+              presets: ['es2017', 'react', 'stage-0'],
+              plugins: [] // notice 'css-modules-transform' is not here
+            }
+          },
+          'awesome-typescript-loader'
+        ]
+      },
+      {
         test: /\.css$/,
         use: ExtractCssChunks.extract({
           use: {

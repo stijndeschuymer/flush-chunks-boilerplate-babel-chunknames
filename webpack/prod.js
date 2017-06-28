@@ -13,10 +13,10 @@ module.exports = {
     path: path.resolve(__dirname, '../build'),
     publicPath: '/static/'
   },
-    resolve: {
-        extensions: ['.ts', '.tsx', '.js', 'jsx', '.json'],
-        modules: ['src', 'node_modules']
-    },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', 'jsx', '.json'],
+    modules: ['src', 'node_modules']
+  },
   module: {
     rules: [
       {
@@ -33,20 +33,23 @@ module.exports = {
           }
         }
       },
-        {
-            // the client needs `css-modules-transform` removed from the babelrc
-            // since `ExtractCssChunks` handles css transformation:
-            test: /\.tsx?$/,
-            exclude: /node_modules/,
-            use: [{
-                loader: 'babel-loader',
-                options: {
-                    babelrc: false,
-                    presets: ['es2015', 'react', 'stage-2'],
-                    plugins: [] // notice 'css-modules-transform' is not here
-                }
-            }, 'awesome-typescript-loader']
-        },
+      {
+        // the client needs `css-modules-transform` removed from the babelrc
+        // since `ExtractCssChunks` handles css transformation:
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              babelrc: false,
+              presets: ['es2015', 'react', 'stage-2'],
+              plugins: [] // notice 'css-modules-transform' is not here
+            }
+          },
+          'awesome-typescript-loader'
+        ]
+      },
       {
         test: /\.css$/,
         use: ExtractCssChunks.extract({
@@ -74,7 +77,7 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('production')
       }
-    }),
+    })
     // new webpack.optimize.UglifyJsPlugin({
     //   compress: {
     //     screw_ie8: true,

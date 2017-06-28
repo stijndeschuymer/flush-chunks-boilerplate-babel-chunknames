@@ -64,7 +64,7 @@ export default ({ clientStats, outputPath }) => (req, res, next) => {
         <Styles />
       </head>
       <body>
-        <div id="root" dangerouslySetInnerHTML={{ __html: app }} />
+        <div id='root' dangerouslySetInnerHTML={{ __html: app }} />
         <Js />
       </body>
     </html>

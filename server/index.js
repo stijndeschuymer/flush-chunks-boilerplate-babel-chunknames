@@ -20,13 +20,12 @@ const app = express()
 //   })
 // }
 // else {
-  const clientStats = require('../build/stats.json')
+const clientStats = require('../build/stats.json')
 
-  app.use(publicPath, express.static(outputPath))
-  app.use(serverRender({ clientStats, outputPath }))
+app.use(publicPath, express.static(outputPath))
+app.use(serverRender({ clientStats, outputPath }))
 // }
 
 app.listen(3000, () => {
   console.log('Listening @ http://localhost:3000/')
 })
-
