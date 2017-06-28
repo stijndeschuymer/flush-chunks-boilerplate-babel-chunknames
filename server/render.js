@@ -3,7 +3,7 @@ import React from 'react'
 import ReactDOM from 'react-dom/server'
 import { flushChunkNames } from 'react-universal-component/server'
 import flushChunks from 'webpack-flush-chunks'
-import App from '../src/components/App'
+import App from '../ts-build/components/App'
 
 export default ({ clientStats, outputPath }) => (req, res, next) => {
   const app = ReactDOM.renderToString(<App />)
@@ -23,7 +23,7 @@ export default ({ clientStats, outputPath }) => (req, res, next) => {
     // arrays of file names (not including publicPath):
     scripts,
     stylesheets,
-    
+
     publicPath
   } = flushChunks(clientStats, {
     chunkNames,
@@ -40,35 +40,35 @@ export default ({ clientStats, outputPath }) => (req, res, next) => {
   console.log('SERVED SCRIPTS', scripts)
   console.log('SERVED STYLESHEETS', stylesheets)
 
-  res.send(
-    `<!doctype html>
-      <html>
-        <head>
-          <meta charset="utf-8">
-          <title>react-universal-component-boilerplate</title>
-          ${styles}
-        </head>
-        <body>
-          <div id="root">${app}</div>
-          ${js}
-        </body>
-      </html>`
-  )
+  // res.send(
+  //   `<!doctype html>
+  //     <html>
+  //       <head>
+  //         <meta charset="utf-8">
+  //         <title>react-universal-component-boilerplate</title>
+  //         ${styles}
+  //       </head>
+  //       <body>
+  //         <div id="root">${app}</div>
+  //         ${js}
+  //       </body>
+  //     </html>`
+  // )
 
   // COMMENT the above `res.send` call
   // and UNCOMMENT below to test rendering React components:
 
-  // const html = ReactDOM.renderToStaticMarkup(
-  //   <html>
-  //     <head>
-  //       <Styles />
-  //     </head>
-  //     <body>
-  //       <div id="root" dangerouslySetInnerHTML={{ __html: app }} />
-  //       <Js />
-  //     </body>
-  //   </html>
-  // )
+  const html = ReactDOM.renderToStaticMarkup(
+    <html>
+      <head>
+        <Styles />
+      </head>
+      <body>
+        <div id="root" dangerouslySetInnerHTML={{ __html: app }} />
+        <Js />
+      </body>
+    </html>
+  )
 
-  // res.send(`<!DOCTYPE html>${html}`)
+  res.send(`<!DOCTYPE html>${html}`)
 }

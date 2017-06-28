@@ -9,22 +9,22 @@ const DEV = process.env.NODE_ENV === 'development'
 const publicPath = clientConfig.output.publicPath
 const outputPath = clientConfig.output.path
 const app = express()
-
-if (DEV) {
-  const compiler = webpack(clientConfig)
-
-  app.use(webpackDevMiddleware(compiler, { publicPath }))
-  app.use(webpackHotMiddleware(compiler))
-  compiler.plugin('done', stats => {
-    app.use(serverRender({ clientStats: stats.toJson(), outputPath }))
-  })
-}
-else {
+//
+// if (DEV) {
+//   const compiler = webpack(clientConfig)
+//
+//   app.use(webpackDevMiddleware(compiler, { publicPath }))
+//   app.use(webpackHotMiddleware(compiler))
+//   compiler.plugin('done', stats => {
+//     app.use(serverRender({ clientStats: stats.toJson(), outputPath }))
+//   })
+// }
+// else {
   const clientStats = require('../build/stats.json')
 
   app.use(publicPath, express.static(outputPath))
   app.use(serverRender({ clientStats, outputPath }))
-}
+// }
 
 app.listen(3000, () => {
   console.log('Listening @ http://localhost:3000/')

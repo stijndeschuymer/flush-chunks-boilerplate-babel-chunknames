@@ -1,7 +1,10 @@
-import path from 'path'
-import React from 'react'
-import universal from 'react-universal-component'
-import styles from '../css/App.css'
+declare var __dirname;
+declare var require;
+
+import * as path from 'path';
+import React from 'react';
+import universal from 'react-universal-component';
+import styles from '../css/App.css';
 
 const UniversalExample = universal(() => import(/* webpackChunkName: 'Example' */ './Example'), {
   path: path.resolve(__dirname, './Example'),
@@ -10,12 +13,12 @@ const UniversalExample = universal(() => import(/* webpackChunkName: 'Example' *
   minDelay: 500
 })
 
-export default class App extends React.Component {
+export default class App extends React.Component<any, any> {
   // set `show` to `true` to see dynamic chunks served by initial request
   // set `show` to `false` to test how asynchronously loaded chunks behave,
   // specifically how css injection is embedded in chunks + corresponding HMR
   state = {
-    show: true
+    show: false
   }
 
   componentDidMount() {
