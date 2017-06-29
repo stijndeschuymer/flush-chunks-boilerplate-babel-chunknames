@@ -6,10 +6,10 @@
   "author": "James Gillmore <james@faceyspacey.com>",
   "license": "MIT",
   "scripts": {
-    "start": "npm run clean && NODE_ENV=development babel-watch -x src server/index.js",
-    "start:prod": "npm run build && NODE_ENV=production babel-watch -x src server/index.js",
-    "build": "rimraf buildServer && NODE_ENV=production webpack --progress -p --config webpack/prod.js",
-    "clean": "rimraf build",
+    "start": "npm run clean && npm run tsc && NODE_ENV=development babel-watch -x src server/index.js",
+    "start:prod": "npm run build && npm run tsc && NODE_ENV=production babel-watch -x src server/index.js",
+    "build": "rimraf buildServer && rimraf ts-build && NODE_ENV=production webpack --progress -p --config webpack/prod.js",
+    "clean": "rimraf build && rimraf ts-build",
     "cm": "git-cz",
     "lint": "eslint --fix src server webpack",
     "format": "prettier --single-quote --semi=false --write '{src,server,webpack}/**/*.js' && npm run lint",
@@ -19,6 +19,7 @@
     "express": "^4.15.2",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-router-dom": "^4.1.1",
     "react-universal-component": "^1.2.1",
     "webpack-flush-chunks": "^1.0.4"
   },

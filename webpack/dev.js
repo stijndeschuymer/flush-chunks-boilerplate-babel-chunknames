@@ -8,8 +8,8 @@ module.exports = {
   devtool: 'source-map',
   // devtool: 'eval',
   entry: [
-    // 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false',
-    // 'react-hot-loader/patch',
+    'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false',
+    'react-hot-loader/patch',
     path.resolve(__dirname, '../src/index.tsx')
   ],
   resolve: {
@@ -70,14 +70,14 @@ module.exports = {
   },
   plugins: [
     new ExtractCssChunks(),
-    // new webpack.optimize.CommonsChunkPlugin({
-    //   names: ['bootstrap'], // needed to put webpack bootstrap code before chunks
-    //   filename: '[name].js',
-    //   minChunks: Infinity
-    // }),
+    new webpack.optimize.CommonsChunkPlugin({
+      names: ['bootstrap'], // needed to put webpack bootstrap code before chunks
+      filename: '[name].js',
+      minChunks: Infinity
+    }),
 
-    // new webpack.HotModuleReplacementPlugin(),
-    // new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('development')

@@ -6,7 +6,10 @@ import flushChunks from 'webpack-flush-chunks'
 import App from '../ts-build/components/App'
 
 export default ({ clientStats, outputPath }) => (req, res, next) => {
-  const app = ReactDOM.renderToString(<App />)
+  const app = (
+      <App />
+  )
+  const appString = ReactDOM.renderToString(app)
   const chunkNames = flushChunkNames()
 
   const {
@@ -64,7 +67,7 @@ export default ({ clientStats, outputPath }) => (req, res, next) => {
         <Styles />
       </head>
       <body>
-        <div id='root' dangerouslySetInnerHTML={{ __html: app }} />
+        <div id='root' dangerouslySetInnerHTML={{ __html: appString }} />
         <Js />
       </body>
     </html>

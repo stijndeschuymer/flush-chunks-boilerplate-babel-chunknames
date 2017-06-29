@@ -33,7 +33,7 @@ export default class App extends React.Component<any, any> {
   render() {
     return (
       <div>
-        <h1 className={styles.title}>Hello World</h1>
+        <h1 className={styles.title}>Hello World! lala</h1>
         {this.state.show && <UniversalExample />}
         {!this.state.show && 'Async Component Not Requested Yet'}
       </div>
