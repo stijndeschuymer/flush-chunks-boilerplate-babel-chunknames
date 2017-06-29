@@ -3,11 +3,18 @@ import React from 'react'
 import ReactDOM from 'react-dom/server'
 import { flushChunkNames } from 'react-universal-component/server'
 import flushChunks from 'webpack-flush-chunks'
+import { StaticRouter } from 'react-router-dom'
 import App from '../ts-build/components/App'
 
 export default ({ clientStats, outputPath }) => (req, res, next) => {
+  const context = {};
   const app = (
-      <App />
+      <StaticRouter
+          location={req.url}
+          context={context}
+      >
+        <App />
+      </StaticRouter>
   )
   const appString = ReactDOM.renderToString(app)
   const chunkNames = flushChunkNames()

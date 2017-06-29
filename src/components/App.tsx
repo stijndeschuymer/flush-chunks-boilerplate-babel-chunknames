@@ -3,13 +3,22 @@ declare var require;
 
 import * as path from 'path';
 import React from 'react';
+import { Switch, Route, Link } from 'react-router-dom';
 import universal from 'react-universal-component';
+import { LazyRoute1 } from './LazyRoute1';
 import styles from '../../css/App.css';
 
 const UniversalExample = universal(() => import(/* webpackChunkName: 'Example' */ './Example'), {
   path: path.resolve(__dirname, './Example'),
   resolve: () => require.resolveWeak('./Example'),
   chunkName: 'Example',
+  minDelay: 500
+})
+
+const UniversalExample3 = universal(() => import(/* webpackChunkName: 'Example3' */ './Example3'), {
+  path: path.resolve(__dirname, './Example3'),
+  resolve: () => require.resolveWeak('./Example3'),
+  chunkName: 'Example3',
   minDelay: 500
 })
 
@@ -33,9 +42,16 @@ export default class App extends React.Component<any, any> {
   render() {
     return (
       <div>
-        <h1 className={styles.title}>Hello World! lala</h1>
-        {this.state.show && <UniversalExample />}
-        {!this.state.show && 'Async Component Not Requested Yet'}
+        <h1 className={styles.title}>Hello World!</h1>
+        <Link to="/">Example1</Link>
+        <Link to="/example2">Example2</Link>
+        <Link to="/example3">Example3</Link>
+        <UniversalExample/>
+        <Switch>
+          <Route exact path="/" component={UniversalExample}/>
+          <Route path="/example2" component={LazyRoute1}/>
+          <Route path="/example3" component={UniversalExample3}/>
+        </Switch>
       </div>
     )
   }
