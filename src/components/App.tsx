@@ -4,7 +4,7 @@ declare var require;
 import * as path from 'path';
 import React from 'react';
 import universal from 'react-universal-component';
-import styles from '../css/App.css';
+import styles from '../../css/App.css';
 
 const UniversalExample = universal(() => import(/* webpackChunkName: 'Example' */ './Example'), {
   path: path.resolve(__dirname, './Example'),
@@ -18,7 +18,7 @@ export default class App extends React.Component<any, any> {
   // set `show` to `false` to test how asynchronously loaded chunks behave,
   // specifically how css injection is embedded in chunks + corresponding HMR
   state = {
-    show: false
+    show: true
   }
 
   componentDidMount() {

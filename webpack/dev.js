@@ -32,7 +32,7 @@ module.exports = {
           loader: 'babel-loader',
           options: {
             babelrc: false,
-            presets: ['es2017', 'react', 'stage-0'],
+            presets: ['es2015', 'react', 'stage-2'],
             plugins: [] // notice 'css-modules-transform' is not here
           }
         }
@@ -47,7 +47,7 @@ module.exports = {
             loader: 'babel-loader',
             options: {
               babelrc: false,
-              presets: ['es2017', 'react', 'stage-0'],
+              presets: ['es2015', 'react', 'stage-2'],
               plugins: [] // notice 'css-modules-transform' is not here
             }
           },
