@@ -11,11 +11,17 @@ const render = App =>
     document.getElementById('root')
   )
 
+
+declare var module: { hot: any };
+declare var require: any;
+
 if (process.env.NODE_ENV === 'development') {
-  module.hot.accept('./components/App.js', () => {
-    const App = require('./components/App').default
-    render(App)
-  })
+    if (module['hot']) {
+        module.hot.accept('./components/App', () => {
+            const App = require('./components/App').default
+            render(App)
+        })
+    }
 }
 
 render(App)

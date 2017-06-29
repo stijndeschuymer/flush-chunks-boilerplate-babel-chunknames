@@ -10,8 +10,12 @@ module.exports = {
   entry: [
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=false&quiet=false&noInfo=false',
     'react-hot-loader/patch',
-    path.resolve(__dirname, '../src/index.js')
+    path.resolve(__dirname, '../src/index.tsx')
   ],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', 'jsx', '.json'],
+    modules: ['src', 'node_modules']
+  },
   output: {
     filename: '[name].js',
     path: path.resolve(__dirname, '../build'),
@@ -22,7 +26,7 @@ module.exports = {
       {
         // the client needs `css-modules-transform` removed from the babelrc
         // since `ExtractCssChunks` handles css transformation:
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -32,6 +36,23 @@ module.exports = {
             plugins: [] // notice 'css-modules-transform' is not here
           }
         }
+      },
+      {
+        // the client needs `css-modules-transform` removed from the babelrc
+        // since `ExtractCssChunks` handles css transformation:
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              babelrc: false,
+              presets: ['es2015', 'react', 'stage-2'],
+              plugins: [] // notice 'css-modules-transform' is not here
+            }
+          },
+          'awesome-typescript-loader'
+        ]
       },
       {
         test: /\.css$/,

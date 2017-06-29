@@ -7,18 +7,22 @@ module.exports = {
   name: 'client',
   target: 'web',
   devtool: 'source-map',
-  entry: [path.resolve(__dirname, '../src/index.js')],
+  entry: [path.resolve(__dirname, '../src/index.tsx')],
   output: {
     filename: '[name].[chunkhash].js',
     path: path.resolve(__dirname, '../build'),
     publicPath: '/static/'
+  },
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', 'jsx', '.json'],
+    modules: ['src', 'node_modules']
   },
   module: {
     rules: [
       {
         // the client needs `css-modules-transform` removed from the babelrc
         // since `ExtractCssChunks` handles css transformation:
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
@@ -28,6 +32,23 @@ module.exports = {
             plugins: [] // notice 'css-modules-transform' is not here
           }
         }
+      },
+      {
+        // the client needs `css-modules-transform` removed from the babelrc
+        // since `ExtractCssChunks` handles css transformation:
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              babelrc: false,
+              presets: ['es2015', 'react', 'stage-2'],
+              plugins: [] // notice 'css-modules-transform' is not here
+            }
+          },
+          'awesome-typescript-loader'
+        ]
       },
       {
         test: /\.css$/,
@@ -56,20 +77,20 @@ module.exports = {
       'process.env': {
         NODE_ENV: JSON.stringify('production')
       }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        screw_ie8: true,
-        warnings: false
-      },
-      mangle: {
-        screw_ie8: true
-      },
-      output: {
-        screw_ie8: true,
-        comments: false
-      },
-      sourceMap: true
     })
+    // new webpack.optimize.UglifyJsPlugin({
+    //   compress: {
+    //     screw_ie8: true,
+    //     warnings: false
+    //   },
+    //   mangle: {
+    //     screw_ie8: true
+    //   },
+    //   output: {
+    //     screw_ie8: true,
+    //     comments: false
+    //   },
+    //   sourceMap: true
+    // })
   ]
 }

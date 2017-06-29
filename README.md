@@ -30,7 +30,7 @@ After selecting one of the above commands, open [localhost:3000](http://localhos
 
 - try both commands and examine their corresponding Webpack configs and the corresponding server file: [`server/index.js`](./server/index.js)
 - view the source in your browser to see what the server sends (do this often)
-- open [`src/components/App.js`](./src/components/App.js) and toggle `state.show` between `false` and `true` and
+- open [`src/components/App.js`](src/components/App.tsx) and toggle `state.show` between `false` and `true` and
 then view the source in your browser to see when corresponding chunks are sent vs. not sent.
 - open the browser console *Network* tab and see when in fact the `Example.js` chunk is asynchronously loaded (it won't be if `state.show` starts off as `true`, which is desired result, i.e. because the client *synchronously* renders exactly what was rendered on the server)
 - edit the `<App />` and `<Example />` components to see that HMR works--even for split chunks. Do so with both `state.show` pre-set to both
